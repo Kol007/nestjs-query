@@ -1,0 +1,13 @@
+export declare const BEFORE_CREATE_ONE_KEY = "nestjs-query:before-create-one";
+export declare const BEFORE_CREATE_MANY_KEY = "nestjs-query:before-create-many";
+export declare const BEFORE_UPDATE_ONE_KEY = "nestjs-query:before-update-one";
+export declare const BEFORE_UPDATE_MANY_KEY = "nestjs-query:before-update-many";
+export declare const BEFORE_DELETE_ONE_KEY = "nestjs-query:before-delete-one";
+export declare const BEFORE_DELETE_MANY_KEY = "nestjs-query:before-delete-many";
+export declare const BEFORE_QUERY_MANY_KEY = "nestjs-query:before-query-many";
+export declare const BEFORE_FIND_ONE_KEY = "nestjs-query:before-find-one";
+export declare const FILTERABLE_FIELD_KEY = "nestjs-query:filterable-field";
+export declare const RELATION_KEY = "nestjs-query:relation";
+export declare const REFERENCE_KEY = "nestjs-query:reference";
+export declare const AUTHORIZER_KEY = "nestjs-query:authorizer";
+export declare const KEY_SET_KEY = "nestjs-query:key-set";

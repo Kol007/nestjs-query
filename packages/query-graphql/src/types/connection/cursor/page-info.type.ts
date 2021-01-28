@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Class } from '@nestjs-query/core';
+import { Class } from 'nestjs-query/packages/core';
 import { ConnectionCursorType, ConnectionCursorScalar } from '../../cursor.scalar';
 
 export interface PageInfoTypeConstructor {

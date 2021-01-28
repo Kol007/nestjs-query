@@ -1,4 +1,4 @@
-import { Class } from '@nestjs-query/core';
+import { Class } from 'nestjs-query/packages/core';
 import { Complexity } from '@nestjs/graphql';
 import { DTONamesOpts } from '../../common';
 import { ResolverMethodOpts } from '../../decorators';

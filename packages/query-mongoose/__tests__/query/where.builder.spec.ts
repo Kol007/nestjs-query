@@ -1,4 +1,4 @@
-import { Filter } from '@nestjs-query/core';
+import { Filter } from 'nestjs-query/packages/core';
 import { FilterQuery } from 'mongoose';
 import { TestEntity } from '../__fixtures__/test.entity';
 import { WhereBuilder } from '../../src/query';

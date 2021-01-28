@@ -1,5 +1,5 @@
 import { ModuleRef } from '@nestjs/core';
-import { Class, Filter } from '@nestjs-query/core';
+import { Class, Filter } from 'nestjs-query/packages/core';
 import { Injectable } from '@nestjs/common';
 import { getAuthorizer, getRelations } from '../decorators';
 import { getAuthorizerToken } from './tokens';

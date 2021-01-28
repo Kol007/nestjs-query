@@ -1,0 +1,13 @@
+import { ArrayReflector, Class } from 'nestjs-query/packages/core';
+import { RelationsOpts, ResolverRelation } from '../resolvers/relations';
+import { BaseResolverOptions } from './resolver-method.decorator';
+export declare const reflector: ArrayReflector;
+export declare type RelationDecoratorOpts<Relation> = Omit<ResolverRelation<Relation>, 'DTO'>;
+export declare type RelationTypeFunc<Relation> = () => Class<Relation> | Class<Relation>[];
+export declare type ConnectionTypeFunc<Relation> = () => Class<Relation>;
+export declare type RelationClassDecorator<DTO> = <Cls extends Class<DTO>>(DTOClass: Cls) => Cls | void;
+export declare function getRelations<DTO>(DTOClass: Class<DTO>, opts?: BaseResolverOptions): RelationsOpts;
+export declare function Relation<DTO, Relation>(name: string, relationTypeFunc: RelationTypeFunc<Relation>, options?: RelationDecoratorOpts<Relation>): RelationClassDecorator<DTO>;
+export declare function FilterableRelation<DTO, Relation>(name: string, relationTypeFunc: RelationTypeFunc<Relation>, options?: RelationDecoratorOpts<Relation>): RelationClassDecorator<DTO>;
+export declare function Connection<DTO, Relation>(name: string, relationTypeFunc: ConnectionTypeFunc<Relation>, options?: RelationDecoratorOpts<Relation>): RelationClassDecorator<DTO>;
+export declare function FilterableConnection<DTO, Relation>(name: string, relationTypeFunc: ConnectionTypeFunc<Relation>, options?: RelationDecoratorOpts<Relation>): RelationClassDecorator<DTO>;

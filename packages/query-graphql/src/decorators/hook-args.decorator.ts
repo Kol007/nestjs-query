@@ -1,4 +1,4 @@
-import { Class, MetaValue } from '@nestjs-query/core';
+import { Class, MetaValue } from 'nestjs-query/packages/core';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Args, GqlExecutionContext } from '@nestjs/graphql';
 import { HookFunc } from './hook.decorator';

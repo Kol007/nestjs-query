@@ -1,7 +1,7 @@
-// import { ArrayReflector, Class, FilterComparisonOperators, getPrototypeChain } from '@nestjs-query/core';
+// import { ArrayReflector, Class, FilterComparisonOperators, getPrototypeChain } from 'nestjs-query/packages/core';
 import { Field, FieldOptions, ReturnTypeFunc } from '@nestjs/graphql';
 // import { ArrayReflector, Class, FilterComparisonOperators, getPrototypeChain } from '../../../core';
-import { ArrayReflector, Class, FilterComparisonOperators, getPrototypeChain } from '@nestjs-query/core';
+import { ArrayReflector, Class, FilterComparisonOperators, getPrototypeChain } from 'nestjs-query/packages/core';
 import { FILTERABLE_FIELD_KEY } from './constants';
 
 const reflector = new ArrayReflector(FILTERABLE_FIELD_KEY);

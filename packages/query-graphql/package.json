@@ -35,8 +35,10 @@
   "dependencies": {
     "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
     "graphql-fields": "^2.0.3",
+    "graphql-type-json": "^0.3.2",
     "lodash.omit": "^4.5.0",
     "lower-case-first": "^2.0.1",
+    "nestjs-query": "github:Kol007/nestjs-query#master",
     "pluralize": "^8.0.0",
     "upper-case-first": "^2.0.1"
   },

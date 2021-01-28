@@ -18,7 +18,8 @@
   "dependencies": {
     "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
     "lodash.escaperegexp": "^4.1.2",
-    "lodash.merge": "^4.6.2"
+    "lodash.merge": "^4.6.2",
+    "nestjs-query": "github:Kol007/nestjs-query#master"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.0",

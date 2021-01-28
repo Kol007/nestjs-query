@@ -1,0 +1,73 @@
+import { ModifyRelationOptions } from 'nestjs-query/packages/core';
+import { ResolverMethodOpts } from '../../decorators';
+import { RelationTypeMap, ResolverRelation, ResolverRelationReference } from './relations.interface';
+import { Authorizer } from '../../auth';
+export declare const flattenRelations: <RT extends ({
+    DTO: import("nestjs-query/packages/core").Class<unknown>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<unknown> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").CursorQueryArgsTypeOpts<unknown> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ({
+    DTO: import("nestjs-query/packages/core").Class<unknown>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<unknown> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").OffsetQueryArgsTypeOpts<unknown> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ({
+    DTO: import("nestjs-query/packages/core").Class<unknown>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<unknown> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").NoPagingQueryArgsTypeOpts<unknown> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ResolverRelationReference<unknown, unknown>>(relationOptions: Record<string, RT>) => RT[];
+export declare const removeRelationOpts: <Relation>(opts: ({
+    DTO: import("nestjs-query/packages/core").Class<Relation>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<Relation> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").CursorQueryArgsTypeOpts<Relation> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ({
+    DTO: import("nestjs-query/packages/core").Class<Relation>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<Relation> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").OffsetQueryArgsTypeOpts<Relation> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ({
+    DTO: import("nestjs-query/packages/core").Class<Relation>;
+    relationName?: string | undefined;
+    nullable?: boolean | undefined;
+    disableRead?: boolean | undefined;
+    disableUpdate?: boolean | undefined;
+    disableRemove?: boolean | undefined;
+    enableAggregate?: boolean | undefined;
+    allowFiltering?: boolean | undefined;
+    complexity?: number | import("@nestjs/graphql").ComplexityEstimator | undefined;
+    auth?: import("../../auth").AuthorizerOptions<Relation> | undefined;
+} & import("../..").DTONamesOpts & ResolverMethodOpts & import("../../types/query/query-args").NoPagingQueryArgsTypeOpts<Relation> & Pick<import("../../types/connection/cursor").CursorConnectionOptions, "enableTotalCount">) | ResolverRelationReference<unknown, Relation>) => ResolverMethodOpts;
+export declare const getModifyRelationOptions: <DTO, Relation>(relationName: string, authorizer?: Authorizer<DTO> | undefined, context?: unknown) => Promise<ModifyRelationOptions<DTO, Relation> | undefined>;

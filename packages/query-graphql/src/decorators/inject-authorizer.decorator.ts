@@ -1,4 +1,4 @@
-import { Class } from '@nestjs-query/core';
+import { Class } from 'nestjs-query/packages/core';
 import { Inject } from '@nestjs/common';
 import { getAuthorizerToken } from '../auth';
 

@@ -1,4 +1,4 @@
-import { Class } from '@nestjs-query/core';
+import { Class } from 'nestjs-query/packages/core';
 import { PubSub } from 'graphql-subscriptions';
 import { DTONamesOpts, getDTONames } from '../common';
 import { GraphQLPubSub } from './pub-sub.interface';

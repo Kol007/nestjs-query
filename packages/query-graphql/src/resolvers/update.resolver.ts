@@ -6,7 +6,7 @@ import {
   mergeFilter,
   QueryService,
   UpdateManyResponse,
-} from '@nestjs-query/core';
+} from 'nestjs-query/packages/core';
 import { ArgsType, InputType, Resolver, Args, PartialType, Context } from '@nestjs/graphql';
 import omit from 'lodash.omit';
 import { DTONames, getDTONames } from '../common';

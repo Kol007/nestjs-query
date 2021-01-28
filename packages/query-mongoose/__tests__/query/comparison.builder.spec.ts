@@ -1,4 +1,4 @@
-import { CommonFieldComparisonBetweenType } from '@nestjs-query/core';
+import { CommonFieldComparisonBetweenType } from 'nestjs-query/packages/core';
 import { TestEntity } from '../__fixtures__/test.entity';
 import { ComparisonBuilder } from '../../src/query';
 

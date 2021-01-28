@@ -6,7 +6,7 @@ import {
   AssemblerFactory,
   AssemblerQueryService,
   Assembler,
-} from '@nestjs-query/core';
+} from 'nestjs-query/packages/core';
 import { Provider, Inject, Optional } from '@nestjs/common';
 import { Resolver } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';

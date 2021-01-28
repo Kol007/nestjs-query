@@ -1,5 +1,5 @@
 import { Query, Resolver } from '@nestjs/graphql';
-import { UpdateManyResponse } from '@nestjs-query/core';
+import { UpdateManyResponse } from 'nestjs-query/packages/core';
 import { UpdateManyResponseType } from '../../src';
 import { expectSDL, updateManyResponseTypeSDL } from '../__fixtures__';
 

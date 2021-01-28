@@ -1,4 +1,4 @@
-import { Class } from '@nestjs-query/core';
+import { Class } from 'nestjs-query/packages/core';
 import { getKeySet } from '../../../../decorators';
 import { Pager } from './interfaces';
 import { CursorPager } from './pager';

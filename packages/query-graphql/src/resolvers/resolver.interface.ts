@@ -1,4 +1,4 @@
-import { QueryService } from '@nestjs-query/core';
+import { QueryService } from 'nestjs-query/packages/core';
 import { DTONamesOpts } from '../common';
 import { ResolverMethodOpts, SubscriptionResolverMethodOpts } from '../decorators';
 import { GraphQLPubSub } from '../subscription';

@@ -1,4 +1,4 @@
-import { Class, DeepPartial, QueryService } from '@nestjs-query/core';
+import { Class, DeepPartial, QueryService } from 'nestjs-query/packages/core';
 import { PagingStrategies } from '../types';
 import { Aggregateable, AggregateResolverOpts, AggregateResolver } from './aggregate.resolver';
 import { Relatable } from './relations';

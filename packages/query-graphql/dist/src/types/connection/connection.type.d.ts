@@ -1,0 +1,10 @@
+import { Class } from 'nestjs-query/packages/core';
+import { StaticNoPagingQueryArgsType, StaticOffsetQueryArgsType, StaticQueryArgsType } from '../query';
+import { StaticArrayConnectionType } from './array-connection.type';
+import { StaticCursorConnectionType, CursorConnectionOptions } from './cursor';
+import { Connection } from './interfaces';
+export declare type StaticConnectionType<DTO> = StaticArrayConnectionType<DTO> | StaticCursorConnectionType<DTO>;
+export declare type ConnectionType<DTO> = Connection<DTO>;
+export declare function ConnectionType<DTO>(DTOClass: Class<DTO>, QueryArgsType: StaticOffsetQueryArgsType<DTO> | StaticNoPagingQueryArgsType<DTO>): StaticArrayConnectionType<DTO>;
+export declare function ConnectionType<DTO>(DTOClass: Class<DTO>, QueryArgsType: StaticQueryArgsType<DTO>, opts?: CursorConnectionOptions): StaticCursorConnectionType<DTO>;
+export declare function ConnectionType<DTO>(DTOClass: Class<DTO>, opts?: CursorConnectionOptions): StaticCursorConnectionType<DTO>;

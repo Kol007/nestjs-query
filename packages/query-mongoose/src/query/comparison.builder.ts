@@ -31,6 +31,7 @@ export class ComparisonBuilder<Entity extends Document> {
     notin: '$nin',
     is: '$eq',
     isnot: '$ne',
+    all: '$all',
   };
 
   constructor(readonly comparisonMap: Record<string, string> = ComparisonBuilder.DEFAULT_COMPARISON_MAP) {}

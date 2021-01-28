@@ -2,8 +2,6 @@
   "name": "@nestjs-query/query-graphql",
   "version": "0.21.2",
   "description": "Nestjs graphql query adapter",
-  "author": "doug-martin <doug@dougamartin.com>",
-  "homepage": "https://github.com/doug-martin/nestjs-query#readme",
   "keywords": [
     "graphql",
     "crud",
@@ -25,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doug-martin/nestjs-query.git",
+    "url": "git+https://github.com/Kol007/nestjs-query",
     "directory": "packages/query-graphql"
   },
   "scripts": {
@@ -34,11 +32,8 @@
     "build": "tsc",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
   },
-  "bugs": {
-    "url": "https://github.com/doug-martin/nestjs-query/issues"
-  },
   "dependencies": {
-    "@nestjs-query/core": "0.21.2",
+    "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
     "graphql-fields": "^2.0.3",
     "lodash.omit": "^4.5.0",
     "lower-case-first": "^2.0.1",

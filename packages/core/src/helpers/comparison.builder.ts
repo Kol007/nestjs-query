@@ -11,6 +11,8 @@ import {
   LikeComparisonOperators,
   InComparisonOperators,
   BetweenComparisonOperators,
+  isAllComparisonOperators,
+  AllComparisonOperators,
 } from './filter.helpers';
 
 const compare = <DTO>(filter: (dto: DTO) => boolean, fallback: boolean): FilterFn<DTO> => {
@@ -31,6 +33,9 @@ export class ComparisonBuilder {
     }
     if (isInComparisonOperators(cmp)) {
       return this.inComparison(cmp, field, val as DTO[F][]);
+    }
+    if (isAllComparisonOperators(cmp)) {
+      return this.allComparison(cmp, field, val as DTO[F][]);
     }
     if (isLikeComparisonOperator(cmp)) {
       return this.likeComparison(cmp, field, (val as unknown) as string);
@@ -107,6 +112,17 @@ export class ComparisonBuilder {
     if (cmp === 'notIn') {
       return compare((dto) => !val.includes(dto[field]), true);
     }
+    return compare((dto) => val.includes(dto[field]), false);
+  }
+
+  private static allComparison<DTO, F extends keyof DTO>(
+    cmp: AllComparisonOperators,
+    field: F,
+    val: DTO[F][],
+  ): FilterFn<DTO> {
+    // if (cmp === 'all') {
+    //   return compare((dto) => !val.includes(dto[field]), true);
+    // }
     return compare((dto) => val.includes(dto[field]), false);
   }
 

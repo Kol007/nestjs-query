@@ -81,6 +81,11 @@ export function getOrCreateStringFieldComparison(): Class<FilterFieldComparison<
     @Field(() => [String], { nullable: true })
     @IsUndefined()
     @IsString({ each: true })
+    all?: string[];
+
+    @Field(() => [String], { nullable: true })
+    @IsUndefined()
+    @IsString({ each: true })
     notIn?: string[];
   }
   stringFieldComparison = StringFieldComparison;

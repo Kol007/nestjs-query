@@ -65,8 +65,14 @@ export class MongooseQueryService<Entity extends Document>
    * @param query - The Query used to filter, page, and sort rows.
    */
   async query(query: Query<Entity>): Promise<Entity[]> {
-    const { filterQuery, options } = this.filterQueryBuilder.buildQuery(query);
-    return this.Model.find(filterQuery, {}, options).exec();
+    const { filterQuery, options, sort } = this.filterQueryBuilder.buildQuery(query);
+    let request = this.Model.find(filterQuery, {}, options);
+
+    if (sort) {
+      request = request.sort(sort);
+    }
+
+    return request.exec();
   }
 
   async aggregate(filter: Filter<Entity>, aggregateQuery: AggregateQuery<Entity>): Promise<AggregateResponse<Entity>> {

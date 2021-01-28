@@ -2,8 +2,6 @@
   "name": "@nestjs-query/query-mongoose",
   "version": "0.21.2",
   "description": "Mongoose adapter for @nestjs-query/core",
-  "author": "doug-martin <doug@dougamartin.com>",
-  "homepage": "https://github.com/doug-martin/nestjs-query#readme",
   "license": "MIT",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -18,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@nestjs-query/core": "0.21.2",
+    "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
     "lodash.escaperegexp": "^4.1.2",
     "lodash.merge": "^4.6.2"
   },
@@ -45,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doug-martin/nestjs-query.git",
+    "url": "git+https://github.com/Kol007/nestjs-query",
     "directory": "packages/query-typeorm-mongo"
   },
   "scripts": {
@@ -53,8 +51,5 @@
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
-  },
-  "bugs": {
-    "url": "https://github.com/doug-martin/nestjs-query/issues"
   }
 }

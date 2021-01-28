@@ -4,6 +4,7 @@ import { FilterBuilder } from './filter.builder';
 
 export type LikeComparisonOperators = 'like' | 'notLike' | 'iLike' | 'notILike';
 export type InComparisonOperators = 'in' | 'notIn';
+export type AllComparisonOperators = 'all';
 export type BetweenComparisonOperators = 'between' | 'notBetween';
 export type RangeComparisonOperators = 'gt' | 'gte' | 'lt' | 'lte';
 export type BooleanComparisonOperators = 'eq' | 'neq' | 'is' | 'isNot';
@@ -16,6 +17,10 @@ export const isLikeComparisonOperator = (op: any): op is LikeComparisonOperators
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isInComparisonOperators = (op: any): op is InComparisonOperators => {
   return op === 'in' || op === 'notIn';
+};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isAllComparisonOperators = (op: any): op is AllComparisonOperators => {
+  return op === 'all';
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

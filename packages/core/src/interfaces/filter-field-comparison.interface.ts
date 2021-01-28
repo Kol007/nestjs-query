@@ -3,6 +3,12 @@
  */
 import { Filter } from './filter.interface';
 
+export interface JsonFieldComparisons {
+  /**
+   * tbd
+   * */
+  nest?: Record<string, unknown>;
+}
 export interface BooleanFieldComparisons {
   /**
    * Is operator.
@@ -111,6 +117,15 @@ export interface CommonFieldComparisonType<FieldType> extends BooleanFieldCompar
    */
   in?: FieldType[];
   /**
+   * Check that a field is included all in an array of values.
+   *
+   * ```ts
+   * // field IN ("a", "b", "c") SQL?
+   * { field: { all: ['a', 'b', 'c'] } }
+   * ```
+   */
+  all?: FieldType[];
+  /**
    * Check that a field is not included in an array of values.
    *
    * ```ts
@@ -185,7 +200,8 @@ type BuiltInTypes =
   | boolean
   | boolean
   | string
-  | string
+  | string[]
+  | Record<string, unknown>
   | number
   | Date
   | RegExp
@@ -207,9 +223,11 @@ type FilterFieldComparisonType<FieldType, IsKeys extends true | false> = FieldTy
   ? StringFieldComparisons // eslint-disable-next-line @typescript-eslint/ban-types
   : FieldType extends boolean | Boolean
   ? BooleanFieldComparisons
-  : FieldType extends null | undefined | never
+  : // : FieldType extends GraphQLJSON
+  // ? JsonFieldComparisons
+  FieldType extends null | undefined | never
   ? BooleanFieldComparisons // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  : FieldType extends number | Date | RegExp | bigint | BuiltInTypes[] | symbol
+  : FieldType extends number | Date | RegExp | bigint | BuiltInTypes[] | any[] | symbol
   ? CommonFieldComparisonType<FieldType>
   : FieldType extends Array<infer U>
   ? CommonFieldComparisonType<U> | Filter<U> // eslint-disable-next-line @typescript-eslint/ban-types

@@ -57,7 +57,7 @@ export interface CRUDResolver<
  * [[UpdateResolver]], and [[DeleteResolver]].
  *
  * ```ts
- * import { CRUDResolver } from '@nestjs-query/query-graphql';
+ * import { CRUDResolver } from '@nestjs-queryquery-graphql';
  * import { Resolver } from '@nestjs/graphql';
  * import { TodoItemDTO } from './dto/todo-item.dto';
  * import { TodoItemService } from './todo-item.service';

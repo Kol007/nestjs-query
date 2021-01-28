@@ -12,8 +12,11 @@ import {
   GraphQLTimestamp,
   GraphQLISODateTime,
 } from '@nestjs/graphql';
+import { GraphQLJSONObject } from 'graphql-type-json';
 import { Type } from 'class-transformer';
 import { IsUndefined } from '../../validators';
+import { getOrCreateJsonFieldComparison } from './json-field-comparison.type';
+import { getOrCreateStringArrayFieldComparison } from './string-array-field-comparison.type';
 import { getOrCreateFloatFieldComparison } from './float-field-comparison.type';
 import { getOrCreateIntFieldComparison } from './int-field-comparison.type';
 import { getOrCreateStringFieldComparison } from './string-field-comparison.type';
@@ -26,6 +29,8 @@ import { getGraphqlEnumMetadata } from '../../../common';
 
 /** @internal */
 const filterComparisonMap = new Map<string, () => Class<FilterFieldComparison<unknown>>>();
+filterComparisonMap.set('JsonFilterComparison', getOrCreateJsonFieldComparison);
+filterComparisonMap.set('StringArrayFilterComparison', getOrCreateStringArrayFieldComparison);
 filterComparisonMap.set('StringFilterComparison', getOrCreateStringFieldComparison);
 filterComparisonMap.set('NumberFilterComparison', getOrCreateNumberFieldComparison);
 filterComparisonMap.set('IntFilterComparison', getOrCreateIntFieldComparison);
@@ -36,6 +41,8 @@ filterComparisonMap.set('DateTimeFilterComparison', getOrCreateDateFieldComparis
 filterComparisonMap.set('TimestampFilterComparison', getOrCreateTimestampFieldComparison);
 
 const knownTypes: Set<ReturnTypeFuncValue> = new Set([
+  GraphQLJSONObject,
+  [String],
   String,
   Number,
   Boolean,
@@ -55,8 +62,10 @@ const isNamed = (SomeType: any): SomeType is { name: string } => {
 
 /** @internal */
 const getTypeName = (SomeType: ReturnTypeFuncValue): string => {
-  if (knownTypes.has(SomeType) || isNamed(SomeType)) {
-    const typeName = (SomeType as { name: string }).name;
+  // filter array if array of known types
+  const someType = Array.isArray(SomeType) ? SomeType?.[0] : SomeType;
+  if (knownTypes.has(someType) || isNamed(someType)) {
+    const typeName = (someType as { name: string }).name;
     return upperCaseFirst(typeName);
   }
   if (typeof SomeType === 'object') {
@@ -165,6 +174,11 @@ export function createFilterComparisonType<T>(options: FilterComparisonOptions<T
     @Type(() => FieldType)
     notILike?: T;
 
+    @SkipIf(isNotAllowed('all'), Field(() => [fieldType], { nullable: true }))
+    @IsUndefined()
+    @Type(() => FieldType)
+    all?: T[];
+
     @SkipIf(isNotAllowed('in'), Field(() => [fieldType], { nullable: true }))
     @IsUndefined()
     @Type(() => FieldType)
@@ -174,6 +188,11 @@ export function createFilterComparisonType<T>(options: FilterComparisonOptions<T
     @IsUndefined()
     @Type(() => FieldType)
     notIn?: T[];
+
+    // @SkipIf(isNotAllowed('nest'), Field(() => fieldType, { nullable: true }))
+    // @IsUndefined()
+    // @Type(() => FieldType)
+    // nest?: Record<string, unknown>;
   }
 
   filterComparisonMap.set(inputName, () => Fc);

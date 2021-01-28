@@ -2,8 +2,6 @@
   "name": "@nestjs-query/core",
   "version": "0.21.2",
   "description": "Base query package",
-  "author": "doug-martin <doug@dougamartin.com>",
-  "homepage": "https://github.com/doug-martin/nestjs-query#readme",
   "license": "MIT",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -19,16 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doug-martin/nestjs-query.git"
+    "url": "git+https://github.com/Kol007/nestjs-query"
   },
   "scripts": {
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
-  },
-  "bugs": {
-    "url": "https://github.com/doug-martin/nestjs-query/issues"
   },
   "dependencies": {
     "lodash.merge": "^4.6.2"

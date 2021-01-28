@@ -9,6 +9,7 @@ type MongooseSort = Record<string, 'asc' | 'desc'>;
 type MongooseQuery<Entity extends Document> = {
   filterQuery: FilterQuery<Entity>;
   options: { limit?: number; skip?: number; sort?: MongooseSort[] };
+  sort: string;
 };
 
 type MongooseAggregateQuery<Entity extends Document> = {
@@ -29,7 +30,8 @@ export class FilterQueryBuilder<Entity extends Document> {
   buildQuery({ filter, paging, sorting }: Query<Entity>): MongooseQuery<Entity> {
     return {
       filterQuery: this.buildFilterQuery(filter),
-      options: { limit: paging?.limit, skip: paging?.offset, sort: this.buildSorting(sorting) },
+      options: { limit: paging?.limit, skip: paging?.offset },
+      sort: this.buildSortingString(sorting),
     };
   }
 
@@ -78,5 +80,17 @@ export class FilterQueryBuilder<Entity extends Document> {
     return (sorts || []).map((sort) => ({
       [getSchemaKey(sort.field.toString())]: sort.direction === SortDirection.ASC ? 'asc' : 'desc',
     }));
+  }
+
+  /**
+   * Applies the ORDER BY clause to a `typeorm` QueryBuilder.
+   * @param sorts - an array of SortFields to create the ORDER BY clause.
+   */
+  buildSortingString(sorts?: SortField<Entity>[]): string {
+    return (sorts || [])
+      .map((sort) => {
+        return `${sort.direction === SortDirection.ASC ? '' : '-'}${getSchemaKey(sort.field.toString())}`;
+      })
+      .join(' ');
   }
 }

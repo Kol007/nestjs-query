@@ -12,7 +12,7 @@ export declare class WhereBuilder<Entity extends Document> {
      * Builds a WHERE clause from a Filter.
      * @param filter - the filter to build the WHERE clause from.
      */
-    build(filter: Filter<Entity>): FilterQuery<Entity>;
+    build(filter: Filter<Entity>, schema?: any): FilterQuery<Entity>;
     /**
      * Creates field comparisons from a filter. This method will ignore and/or properties.
      * @param filter - the filter with fields to create comparisons for.

@@ -46,7 +46,7 @@ class FilterQueryBuilder {
      *
      * @param filter - the filter.
      */
-    buildFilterQuery(filter) {
+    buildFilterQuery(filter, schema) {
         if (!filter) {
             return {};
         }

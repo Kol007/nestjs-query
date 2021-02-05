@@ -1,6 +1,8 @@
 import { Filter, FilterComparisons, FilterFieldComparison } from 'nestjs-query/packages/core';
-import { FilterQuery, Document } from 'mongoose';
+import { FilterQuery, Document, Types, Schema } from 'mongoose';
 import { EntityComparisonField, ComparisonBuilder } from './comparison.builder';
+
+const { ObjectId } = Types;
 
 /**
  * @internal
@@ -13,7 +15,7 @@ export class WhereBuilder<Entity extends Document> {
    * Builds a WHERE clause from a Filter.
    * @param filter - the filter to build the WHERE clause from.
    */
-  build(filter: Filter<Entity>): FilterQuery<Entity> {
+  build(filter: Filter<Entity>, schema?: any): FilterQuery<Entity> {
     const { and, or } = filter;
     let ands: FilterQuery<Entity>[] = [];
     let ors: FilterQuery<Entity>[] = [];
@@ -24,7 +26,7 @@ export class WhereBuilder<Entity extends Document> {
     if (or && or.length) {
       ors = or.map((f) => this.build(f));
     }
-    const filterAnds = this.filterFields(filter);
+    const filterAnds = this.filterFields(filter, schema);
     if (filterAnds) {
       ands = [...ands, filterAnds];
     }
@@ -41,10 +43,12 @@ export class WhereBuilder<Entity extends Document> {
    * Creates field comparisons from a filter. This method will ignore and/or properties.
    * @param filter - the filter with fields to create comparisons for.
    */
-  private filterFields(filter: Filter<Entity>): FilterQuery<Entity> | undefined {
+  private filterFields(filter: Filter<Entity>, schema?: any): FilterQuery<Entity> | undefined {
     const ands = Object.keys(filter)
       .filter((f) => f !== 'and' && f !== 'or')
-      .map((field) => this.withFilterComparison(field as keyof Entity, this.getField(filter, field as keyof Entity)));
+      .map((field) =>
+        this.withFilterComparison(field as keyof Entity, this.getField(filter, field as keyof Entity), schema),
+      );
     if (ands.length === 1) {
       return ands[0];
     }
@@ -64,16 +68,26 @@ export class WhereBuilder<Entity extends Document> {
   private withFilterComparison<T extends keyof Entity>(
     field: T,
     cmp: FilterFieldComparison<Entity[T]>,
+    schema?: any,
   ): FilterQuery<Entity> {
     const opts = Object.keys(cmp) as (keyof FilterFieldComparison<Entity[T]>)[];
     if (opts.length === 1) {
       const cmpType = opts[0];
-      return this.comparisonBuilder.build(field, cmpType, cmp[cmpType] as EntityComparisonField<Entity, T>);
+      const value =
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        schema && schema?.path(field) instanceof Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+
+      return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
     }
     return {
-      $or: opts.map((cmpType) =>
-        this.comparisonBuilder.build(field, cmpType, cmp[cmpType] as EntityComparisonField<Entity, T>),
-      ),
+      $or: opts.map((cmpType) => {
+        const value =
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          schema && schema?.path(field) instanceof Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+        return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
+      }),
     } as FilterQuery<Entity>;
   }
 }

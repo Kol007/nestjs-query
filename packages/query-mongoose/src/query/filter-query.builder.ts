@@ -67,7 +67,7 @@ export class FilterQueryBuilder<Entity extends Document> {
    *
    * @param filter - the filter.
    */
-  buildFilterQuery(filter?: Filter<Entity>): FilterQuery<Entity> {
+  buildFilterQuery(filter?: Filter<Entity>, schema?: any): FilterQuery<Entity> {
     if (!filter) {
       return {};
     }

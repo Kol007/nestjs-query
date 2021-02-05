@@ -34,7 +34,7 @@ export declare class FilterQueryBuilder<Entity extends Document> {
      *
      * @param filter - the filter.
      */
-    buildFilterQuery(filter?: Filter<Entity>): FilterQuery<Entity>;
+    buildFilterQuery(filter?: Filter<Entity>, schema?: any): FilterQuery<Entity>;
     /**
      * Applies the ORDER BY clause to a `typeorm` QueryBuilder.
      * @param sorts - an array of SortFields to create the ORDER BY clause.

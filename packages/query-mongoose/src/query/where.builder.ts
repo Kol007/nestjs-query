@@ -14,6 +14,7 @@ export class WhereBuilder<Entity extends Document> {
   /**
    * Builds a WHERE clause from a Filter.
    * @param filter - the filter to build the WHERE clause from.
+   * @param schema - mongoose schema.
    */
   build(filter: Filter<Entity>, schema?: any): FilterQuery<Entity> {
     const { and, or } = filter;

@@ -71,7 +71,7 @@ export class FilterQueryBuilder<Entity extends Document> {
     if (!filter) {
       return {};
     }
-    return this.whereBuilder.build(filter);
+    return this.whereBuilder.build(filter, schema);
   }
 
   /**

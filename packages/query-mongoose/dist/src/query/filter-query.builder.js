@@ -50,7 +50,7 @@ class FilterQueryBuilder {
         if (!filter) {
             return {};
         }
-        return this.whereBuilder.build(filter);
+        return this.whereBuilder.build(filter, schema);
     }
     /**
      * Applies the ORDER BY clause to a `typeorm` QueryBuilder.

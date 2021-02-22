@@ -20,5 +20,6 @@ export declare class WhereBuilder<Entity extends Document> {
      */
     private filterFields;
     private getField;
+    private convertValueToObjectId;
     private withFilterComparison;
 }

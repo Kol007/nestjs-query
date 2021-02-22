@@ -59,22 +59,30 @@ class WhereBuilder {
     getField(obj, field) {
         return obj[field];
     }
+    convertValueToObjectId(value) {
+        if (Array.isArray(value)) {
+            return value.map((item) => ObjectId(item));
+        }
+        return ObjectId(value);
+    }
     withFilterComparison(field, cmp, schema) {
         const opts = Object.keys(cmp);
         if (opts.length === 1) {
             const cmpType = opts[0];
             const value = 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+            schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId
+                ? this.convertValueToObjectId(cmp[cmpType])
+                : cmp[cmpType];
             return this.comparisonBuilder.build(field, cmpType, value);
         }
         return {
             $or: opts.map((cmpType) => {
                 const value = 
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId
+                    ? this.convertValueToObjectId(cmp[cmpType])
+                    : cmp[cmpType];
                 return this.comparisonBuilder.build(field, cmpType, value);
             }),
         };

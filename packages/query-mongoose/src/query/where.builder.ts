@@ -66,27 +66,37 @@ export class WhereBuilder<Entity extends Document> {
     return obj[field] as FilterFieldComparison<Entity[K]>;
   }
 
+  private convertValueToObjectId(value: any) {
+    if (Array.isArray(value)) {
+      return value.map((item) => ObjectId(item));
+    }
+
+    return ObjectId(value);
+  }
+
   private withFilterComparison<T extends keyof Entity>(
     field: T,
     cmp: FilterFieldComparison<Entity[T]>,
-    schema?: any,
+    schema?: Record<string, any>,
   ): FilterQuery<Entity> {
     const opts = Object.keys(cmp) as (keyof FilterFieldComparison<Entity[T]>)[];
     if (opts.length === 1) {
       const cmpType = opts[0];
       const value =
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        schema && schema?.path(field) instanceof Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        schema && schema?.path(field) instanceof Schema.Types.ObjectId
+          ? this.convertValueToObjectId(cmp[cmpType])
+          : cmp[cmpType];
 
       return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
     }
     return {
       $or: opts.map((cmpType) => {
         const value =
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          schema && schema?.path(field) instanceof Schema.Types.ObjectId ? ObjectId(cmp[cmpType]) : cmp[cmpType];
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          schema && schema?.path(field) instanceof Schema.Types.ObjectId
+            ? this.convertValueToObjectId(cmp[cmpType])
+            : cmp[cmpType];
         return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
       }),
     } as FilterQuery<Entity>;

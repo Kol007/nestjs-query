@@ -23,10 +23,10 @@ class WhereBuilder {
         let ors = [];
         let filterQuery = {};
         if (and && and.length) {
-            ands = and.map((f) => this.build(f));
+            ands = and.map((f) => this.build(f, schema));
         }
         if (or && or.length) {
-            ors = or.map((f) => this.build(f));
+            ors = or.map((f) => this.build(f, schema));
         }
         const filterAnds = this.filterFields(filter, schema);
         if (filterAnds) {

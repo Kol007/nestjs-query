@@ -63,6 +63,9 @@ class WhereBuilder {
         if (Array.isArray(value)) {
             return value.map((item) => ObjectId(item));
         }
+        if (value === null) {
+            return value;
+        }
         return ObjectId(value);
     }
     withFilterComparison(field, cmp, schema) {
@@ -75,16 +78,22 @@ class WhereBuilder {
                 ((schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId ||
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
                     ((_a = schema === null || schema === void 0 ? void 0 : schema.path(field)) === null || _a === void 0 ? void 0 : _a.caster) instanceof mongoose_1.Schema.Types.ObjectId);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const value = isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
             return this.comparisonBuilder.build(field, cmpType, value);
         }
         return {
             $or: opts.map((cmpType) => {
+                var _a;
+                const isObjectId = schema &&
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                    ((schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId ||
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+                        ((_a = schema === null || schema === void 0 ? void 0 : schema.path(field)) === null || _a === void 0 ? void 0 : _a.caster) instanceof mongoose_1.Schema.Types.ObjectId);
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 const value = 
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId
-                    ? this.convertValueToObjectId(cmp[cmpType])
-                    : cmp[cmpType];
+                isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
                 return this.comparisonBuilder.build(field, cmpType, value);
             }),
         };

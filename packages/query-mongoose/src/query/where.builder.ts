@@ -71,6 +71,10 @@ export class WhereBuilder<Entity extends Document> {
       return value.map((item) => ObjectId(item));
     }
 
+    if (value === null) {
+      return value;
+    }
+
     return ObjectId(value);
   }
 
@@ -90,17 +94,24 @@ export class WhereBuilder<Entity extends Document> {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
           schema?.path(field)?.caster instanceof Schema.Types.ObjectId);
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const value = isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
 
       return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
     }
     return {
       $or: opts.map((cmpType) => {
+        const isObjectId =
+          schema &&
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          (schema?.path(field) instanceof Schema.Types.ObjectId ||
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+            schema?.path(field)?.caster instanceof Schema.Types.ObjectId);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const value =
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          schema && schema?.path(field) instanceof Schema.Types.ObjectId
-            ? this.convertValueToObjectId(cmp[cmpType])
-            : cmp[cmpType];
+          isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
         return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
       }),
     } as FilterQuery<Entity>;

@@ -82,11 +82,15 @@ export class WhereBuilder<Entity extends Document> {
     const opts = Object.keys(cmp) as (keyof FilterFieldComparison<Entity[T]>)[];
     if (opts.length === 1) {
       const cmpType = opts[0];
-      const value =
+
+      const isObjectId =
+        schema &&
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        schema && schema?.path(field) instanceof Schema.Types.ObjectId
-          ? this.convertValueToObjectId(cmp[cmpType])
-          : cmp[cmpType];
+        (schema?.path(field) instanceof Schema.Types.ObjectId ||
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+          schema?.path(field)?.caster instanceof Schema.Types.ObjectId);
+
+      const value = isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
 
       return this.comparisonBuilder.build(field, cmpType, value as EntityComparisonField<Entity, T>);
     }

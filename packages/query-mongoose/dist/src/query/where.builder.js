@@ -66,14 +66,16 @@ class WhereBuilder {
         return ObjectId(value);
     }
     withFilterComparison(field, cmp, schema) {
+        var _a;
         const opts = Object.keys(cmp);
         if (opts.length === 1) {
             const cmpType = opts[0];
-            const value = 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-            schema && (schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId
-                ? this.convertValueToObjectId(cmp[cmpType])
-                : cmp[cmpType];
+            const isObjectId = schema &&
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                ((schema === null || schema === void 0 ? void 0 : schema.path(field)) instanceof mongoose_1.Schema.Types.ObjectId ||
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+                    ((_a = schema === null || schema === void 0 ? void 0 : schema.path(field)) === null || _a === void 0 ? void 0 : _a.caster) instanceof mongoose_1.Schema.Types.ObjectId);
+            const value = isObjectId ? this.convertValueToObjectId(cmp[cmpType]) : cmp[cmpType];
             return this.comparisonBuilder.build(field, cmpType, value);
         }
         return {

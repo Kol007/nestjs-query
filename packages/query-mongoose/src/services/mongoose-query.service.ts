@@ -14,7 +14,15 @@ import {
   UpdateOneOptions,
 } from 'nestjs-query/packages/core';
 import { NotFoundException } from '@nestjs/common';
-import { CreateQuery, Document, DocumentToObjectOptions, Model as MongooseModel, UpdateQuery } from 'mongoose';
+import {
+  CreateQuery,
+  Document,
+  DocumentToObjectOptions,
+  // Model as MongooseModel,
+  // DeleteModel,
+  UpdateQuery,
+} from 'mongoose';
+import { SoftDeleteModel } from 'mongoose-delete';
 import { AggregateBuilder, FilterQueryBuilder } from '../query';
 import { ReferenceQueryService } from './reference-query.service';
 
@@ -47,7 +55,7 @@ export class MongooseQueryService<Entity extends Document>
   implements QueryService<Entity, DeepPartial<Entity>, DeepPartial<Entity>> {
   readonly filterQueryBuilder: FilterQueryBuilder<Entity> = new FilterQueryBuilder();
 
-  constructor(readonly Model: MongooseModel<Entity>) {
+  constructor(readonly Model: SoftDeleteModel<Entity>) {
     super();
   }
 
@@ -218,7 +226,18 @@ export class MongooseQueryService<Entity extends Document>
    */
   async deleteOne(id: string, opts?: DeleteOneOptions<Entity>): Promise<Entity> {
     const filterQuery = this.filterQueryBuilder.buildIdFilterQuery(id, opts?.filter);
-    const doc = await this.Model.findOneAndDelete(filterQuery);
+
+    let doc;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (this.Model?.updateDeleted) {
+      doc = await this.Model.findOne(filterQuery);
+      await this.Model.delete(filterQuery);
+    } else {
+      doc = await this.Model.findOneAndDelete(filterQuery); // origin
+    }
+
     if (!doc) {
       throw new NotFoundException(`Unable to find ${this.Model.modelName} with id: ${id}`);
     }
@@ -240,7 +259,21 @@ export class MongooseQueryService<Entity extends Document>
    */
   async deleteMany(filter: Filter<Entity>): Promise<DeleteManyResponse> {
     const filterQuery = this.filterQueryBuilder.buildFilterQuery(filter);
-    const res = await this.Model.deleteMany(filterQuery).exec();
+
+    let res;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (this.Model.updateDeleted) {
+      res = await this.Model.delete(filterQuery); // { n: 1, nModified: 1, ok: 1 }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      return { deletedCount: +res?.ok || 0 };
+    }
+
+    res = await this.Model.deleteMany(filterQuery).exec();
+
     return { deletedCount: res.deletedCount || 0 };
   }
 

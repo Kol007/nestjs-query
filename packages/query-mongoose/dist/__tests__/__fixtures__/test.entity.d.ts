@@ -1,3 +1,4 @@
+/// <reference path="../../../src/types/mongoose-delete.d.ts" />
 import { Document, Types } from 'mongoose';
 export declare class TestEntity extends Document {
     stringType: string;

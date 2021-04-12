@@ -1,7 +1,8 @@
 import { AssemblerDeserializer, AssemblerSerializer, Class, getQueryServiceToken } from 'nestjs-query/packages/core';
 import { FactoryProvider } from '@nestjs/common';
 import { getModelToken, ModelDefinition } from '@nestjs/mongoose';
-import { Model, Document } from 'mongoose';
+import { Document } from 'mongoose';
+import { SoftDeleteModel } from 'mongoose-delete';
 import { MongooseQueryService } from './services';
 
 export type NestjsQueryModelDefinition<Entity extends Document> = {
@@ -17,7 +18,7 @@ function createMongooseQueryServiceProvider<Entity extends Document>(
 ): FactoryProvider {
   return {
     provide: getQueryServiceToken(model.document),
-    useFactory(ModelClass: Model<Entity>) {
+    useFactory(ModelClass: SoftDeleteModel<Entity>) {
       AssemblerDeserializer<Entity>((obj: unknown) => new ModelClass(obj))(model.document);
       // eslint-disable-next-line @typescript-eslint/ban-types
       return new MongooseQueryService<Entity>(ModelClass);

@@ -19,6 +19,7 @@
     "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
     "lodash.escaperegexp": "^4.1.2",
     "lodash.merge": "^4.6.2",
+    "mongoose-delete": "^0.5.3",
     "nestjs-query": "github:Kol007/nestjs-query#master"
   },
   "peerDependencies": {
@@ -35,6 +36,7 @@
     "@types/lodash.merge": "4.6.6",
     "@types/mongodb": "3.6.3",
     "@types/mongoose": "5.10.1",
+    "@types/mongoose-delete": "^0.5.2",
     "class-transformer": "0.3.2",
     "mongodb": "3.6.3",
     "mongodb-memory-server": "6.9.3",

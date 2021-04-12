@@ -1,5 +1,6 @@
 import { AggregateQuery, AggregateResponse, DeepPartial, DeleteManyResponse, DeleteOneOptions, Filter, FindByIdOptions, GetByIdOptions, Query, QueryService, UpdateManyResponse, UpdateOneOptions } from 'nestjs-query/packages/core';
-import { Document, DocumentToObjectOptions, Model as MongooseModel } from 'mongoose';
+import { Document, DocumentToObjectOptions } from 'mongoose';
+import { SoftDeleteModel } from 'mongoose-delete';
 import { FilterQueryBuilder } from '../query';
 import { ReferenceQueryService } from './reference-query.service';
 export interface MongooseQueryServiceOpts {
@@ -22,9 +23,9 @@ export interface MongooseQueryServiceOpts {
  * ```
  */
 export declare class MongooseQueryService<Entity extends Document> extends ReferenceQueryService<Entity> implements QueryService<Entity, DeepPartial<Entity>, DeepPartial<Entity>> {
-    readonly Model: MongooseModel<Entity>;
+    readonly Model: SoftDeleteModel<Entity>;
     readonly filterQueryBuilder: FilterQueryBuilder<Entity>;
-    constructor(Model: MongooseModel<Entity>);
+    constructor(Model: SoftDeleteModel<Entity>);
     /**
      * Query for multiple entities, using a Query from `nestjs-query/packages/core`.
      *

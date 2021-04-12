@@ -5,7 +5,6 @@ const tslib_1 = require("tslib");
 const testing_1 = require("@nestjs/testing");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongodb_1 = require("mongodb");
-const mongoose_2 = require("mongoose");
 const core_1 = require("nestjs-query/packages/core");
 const services_1 = require("../../src/services");
 const __fixtures__1 = require("../__fixtures__");
@@ -23,7 +22,7 @@ describe('MongooseQueryService', () => {
     };
     TestEntityService = tslib_1.__decorate([
         tslib_1.__param(0, mongoose_1.InjectModel(__fixtures__1.TestEntity.name)),
-        tslib_1.__metadata("design:paramtypes", [mongoose_2.Model])
+        tslib_1.__metadata("design:paramtypes", [Object])
     ], TestEntityService);
     let TestReferenceService = class TestReferenceService extends services_1.MongooseQueryService {
         constructor(model) {
@@ -34,7 +33,7 @@ describe('MongooseQueryService', () => {
     };
     TestReferenceService = tslib_1.__decorate([
         tslib_1.__param(0, mongoose_1.InjectModel(__fixtures__1.TestReference.name)),
-        tslib_1.__metadata("design:paramtypes", [mongoose_2.Model])
+        tslib_1.__metadata("design:paramtypes", [Object])
     ], TestReferenceService);
     beforeAll(async () => {
         moduleRef = await testing_1.Test.createTestingModule({

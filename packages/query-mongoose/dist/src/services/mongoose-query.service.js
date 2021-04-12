@@ -181,8 +181,18 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
      * @param opts - Additional filter to use when finding the entity to delete.
      */
     async deleteOne(id, opts) {
+        var _a;
         const filterQuery = this.filterQueryBuilder.buildIdFilterQuery(id, opts === null || opts === void 0 ? void 0 : opts.filter);
-        const doc = await this.Model.findOneAndDelete(filterQuery);
+        let doc;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if ((_a = this.Model) === null || _a === void 0 ? void 0 : _a.updateDeleted) {
+            doc = await this.Model.findOne(filterQuery);
+            await this.Model.delete(filterQuery);
+        }
+        else {
+            doc = await this.Model.findOneAndDelete(filterQuery); // origin
+        }
         if (!doc) {
             throw new common_1.NotFoundException(`Unable to find ${this.Model.modelName} with id: ${id}`);
         }
@@ -203,7 +213,16 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
      */
     async deleteMany(filter) {
         const filterQuery = this.filterQueryBuilder.buildFilterQuery(filter);
-        const res = await this.Model.deleteMany(filterQuery).exec();
+        let res;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (this.Model.updateDeleted) {
+            res = await this.Model.delete(filterQuery); // { n: 1, nModified: 1, ok: 1 }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            return { deletedCount: +(res === null || res === void 0 ? void 0 : res.ok) || 0 };
+        }
+        res = await this.Model.deleteMany(filterQuery).exec();
         return { deletedCount: res.deletedCount || 0 };
     }
     ensureIdIsNotPresent(e) {

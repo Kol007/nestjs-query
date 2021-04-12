@@ -2,7 +2,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { InjectModel, MongooseModule } from '@nestjs/mongoose';
 import { ObjectId } from 'mongodb';
-import { Model, Document } from 'mongoose';
+import { Document } from 'mongoose';
+import { SoftDeleteModel } from 'mongoose-delete';
 import { SortDirection } from 'nestjs-query/packages/core';
 import { MongooseQueryService } from '../../src/services';
 import {
@@ -21,18 +22,18 @@ import { NestjsQueryMongooseModule } from '../../src';
 
 describe('MongooseQueryService', () => {
   let moduleRef: TestingModule;
-  let TestEntityModel: Model<TestEntity>;
-  let TestReferenceModel: Model<TestReference>;
+  let TestEntityModel: SoftDeleteModel<TestEntity>;
+  let TestReferenceModel: SoftDeleteModel<TestReference>;
 
   class TestEntityService extends MongooseQueryService<TestEntity> {
-    constructor(@InjectModel(TestEntity.name) readonly model: Model<TestEntity>) {
+    constructor(@InjectModel(TestEntity.name) readonly model: SoftDeleteModel<TestEntity>) {
       super(model);
       TestEntityModel = model;
     }
   }
 
   class TestReferenceService extends MongooseQueryService<TestReference> {
-    constructor(@InjectModel(TestReference.name) readonly model: Model<TestReference>) {
+    constructor(@InjectModel(TestReference.name) readonly model: SoftDeleteModel<TestReference>) {
       super(model);
       TestReferenceModel = model;
     }

@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MongooseQueryService = void 0;
 const common_1 = require("@nestjs/common");
+// import { SoftDeleteModel } from 'mongoose-delete';
 const query_1 = require("../query");
 const reference_query_service_1 = require("./reference-query.service");
 /**
@@ -21,6 +22,7 @@ const reference_query_service_1 = require("./reference-query.service");
  * ```
  */
 class MongooseQueryService extends reference_query_service_1.ReferenceQueryService {
+    // constructor(readonly Model: MongooseModel<Entity> | SoftDeleteModel<Entity>) {
     constructor(Model) {
         super();
         this.Model = Model;
@@ -188,6 +190,9 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
         // @ts-ignore
         if ((_a = this.Model) === null || _a === void 0 ? void 0 : _a.updateDeleted) {
             doc = await this.Model.findOne(filterQuery);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call
             await this.Model.delete(filterQuery);
         }
         else {
@@ -217,9 +222,12 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         if (this.Model.updateDeleted) {
-            res = await this.Model.delete(filterQuery); // { n: 1, nModified: 1, ok: 1 }
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
+            res = await this.Model.delete(filterQuery); // { n: 1, nModified: 1, ok: 1 }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             return { deletedCount: +(res === null || res === void 0 ? void 0 : res.ok) || 0 };
         }
         res = await this.Model.deleteMany(filterQuery).exec();

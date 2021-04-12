@@ -18,11 +18,11 @@ import {
   CreateQuery,
   Document,
   DocumentToObjectOptions,
-  // Model as MongooseModel,
+  Model as MongooseModel,
   // DeleteModel,
   UpdateQuery,
 } from 'mongoose';
-import { SoftDeleteModel } from 'mongoose-delete';
+// import { SoftDeleteModel } from 'mongoose-delete';
 import { AggregateBuilder, FilterQueryBuilder } from '../query';
 import { ReferenceQueryService } from './reference-query.service';
 
@@ -55,7 +55,8 @@ export class MongooseQueryService<Entity extends Document>
   implements QueryService<Entity, DeepPartial<Entity>, DeepPartial<Entity>> {
   readonly filterQueryBuilder: FilterQueryBuilder<Entity> = new FilterQueryBuilder();
 
-  constructor(readonly Model: SoftDeleteModel<Entity>) {
+  // constructor(readonly Model: MongooseModel<Entity> | SoftDeleteModel<Entity>) {
+  constructor(readonly Model: MongooseModel<Entity>) {
     super();
   }
 
@@ -233,6 +234,9 @@ export class MongooseQueryService<Entity extends Document>
     // @ts-ignore
     if (this.Model?.updateDeleted) {
       doc = await this.Model.findOne(filterQuery);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       await this.Model.delete(filterQuery);
     } else {
       doc = await this.Model.findOneAndDelete(filterQuery); // origin
@@ -265,10 +269,13 @@ export class MongooseQueryService<Entity extends Document>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (this.Model.updateDeleted) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
       res = await this.Model.delete(filterQuery); // { n: 1, nModified: 1, ok: 1 }
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return { deletedCount: +res?.ok || 0 };
     }
 

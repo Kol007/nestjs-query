@@ -74,14 +74,15 @@ export class MongooseQueryService<Entity extends Document>
    * @param query - The Query used to filter, page, and sort rows.
    */
   async query(query: Query<Entity>): Promise<Entity[]> {
-    // const { locale } = query;
+    const { locale } = query;
     const { filterQuery, options, sort } = this.filterQueryBuilder.buildQuery(query);
     let request = this.Model.find(filterQuery, {}, options);
 
-    // if (locale) {
-    //   request = request.collation({ locale });
-    // }
-    // request = request.collation({ locale: 'en' });
+    if (locale) {
+      request = request.collation({ locale });
+    } else {
+      request = request.collation({ locale: 'en' });
+    }
 
     if (sort) {
       request = request.sort(sort);

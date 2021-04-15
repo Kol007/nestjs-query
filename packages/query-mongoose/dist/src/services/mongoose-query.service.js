@@ -42,8 +42,13 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
      * @param query - The Query used to filter, page, and sort rows.
      */
     async query(query) {
+        // const { locale } = query;
         const { filterQuery, options, sort } = this.filterQueryBuilder.buildQuery(query);
         let request = this.Model.find(filterQuery, {}, options);
+        // if (locale) {
+        //   request = request.collation({ locale });
+        // }
+        // request = request.collation({ locale: 'en' });
         if (sort) {
             request = request.sort(sort);
         }

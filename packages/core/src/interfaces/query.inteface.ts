@@ -35,4 +35,8 @@ export interface Query<T> extends Filterable<T> {
    * Option to sort the collection.
    */
   sorting?: SortField<T>[];
+  /**
+   * Option to sort the collation.
+   */
+  locale?: string;
 }

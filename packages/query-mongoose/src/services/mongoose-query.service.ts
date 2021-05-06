@@ -156,7 +156,6 @@ export class MongooseQueryService<Entity extends Document>
    * @param record - The entity to create.
    */
   async createOne(record: DeepPartial<Entity>): Promise<Entity> {
-    this.ensureIdIsNotPresent(record);
     return this.Model.create(record as CreateQuery<Entity>);
   }
 
@@ -173,7 +172,7 @@ export class MongooseQueryService<Entity extends Document>
    * @param records - The entities to create.
    */
   async createMany(records: DeepPartial<Entity>[]): Promise<Entity[]> {
-    records.forEach((r) => this.ensureIdIsNotPresent(r));
+    // records.forEach((r) => this.ensureIdIsNotPresent(r));
     return this.Model.create(records as CreateQuery<Entity>[]);
   }
 

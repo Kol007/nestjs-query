@@ -117,7 +117,6 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
      * @param record - The entity to create.
      */
     async createOne(record) {
-        this.ensureIdIsNotPresent(record);
         return this.Model.create(record);
     }
     /**
@@ -133,7 +132,7 @@ class MongooseQueryService extends reference_query_service_1.ReferenceQueryServi
      * @param records - The entities to create.
      */
     async createMany(records) {
-        records.forEach((r) => this.ensureIdIsNotPresent(r));
+        // records.forEach((r) => this.ensureIdIsNotPresent(r));
         return this.Model.create(records);
     }
     /**

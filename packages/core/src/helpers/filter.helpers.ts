@@ -76,9 +76,10 @@ export const transformFilter = <From, To>(
       return { ...newFilter, [filterField]: filter[filterField]?.map((f) => transformFilter(f, fieldMap)) };
     }
     const fromField = filterField as keyof From;
-    const otherKey = fieldMap[fromField];
+    let otherKey = fieldMap[fromField];
     if (!otherKey) {
-      throw new Error(`No corresponding field found for '${filterField}' when transforming Filter`);
+      otherKey = (fromField as unknown) as keyof To;
+      // throw new Error(`No corresponding field found for '${filterField}' when transforming Filter`);
     }
     return { ...newFilter, [otherKey as string]: filter[fromField] };
   }, {} as Filter<To>);

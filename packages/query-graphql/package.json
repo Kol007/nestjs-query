@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-query/query-graphql",
+  "name": "@platform/query-graphql",
   "version": "0.21.2",
   "description": "Nestjs graphql query adapter",
   "keywords": [
@@ -19,16 +19,14 @@
     "dist/src/**"
   ],
   "publishConfig": {
-    "access": "public"
+    "@platform:registry": "https://gitlab.anvilar.com/api/v4/projects/68/packages/npm/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kol007/nestjs-query",
+    "url": "git+https://gitlab.anvilar.com/platform/common-modules/nestjs-query",
     "directory": "packages/query-graphql"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean",
     "build": "tsc",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
   },

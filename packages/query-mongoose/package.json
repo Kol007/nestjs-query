@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-query/query-mongoose",
+  "name": "@platform/query-mongoose",
   "version": "0.21.2",
   "description": "Mongoose adapter for @nestjs-query/core",
   "license": "MIT",
@@ -13,14 +13,14 @@
     "dist/src/**"
   ],
   "publishConfig": {
-    "access": "public"
+    "@platform:registry": "https://gitlab.anvilar.com/api/v4/projects/68/packages/npm/"
   },
   "dependencies": {
-    "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
+    "@nestjs-query/core": "git+https://gitlab.anvilar.com/platform/common-modules/nestjs-query",
     "lodash.escaperegexp": "^4.1.2",
     "lodash.merge": "^4.6.2",
     "mongoose-delete": "^0.5.3",
-    "nestjs-query": "github:Kol007/nestjs-query#master"
+    "nestjs-query": "git+https://gitlab.anvilar.com/platform/common-modules/nestjs-query#master"
   },
   "peerDependencies": {
     "@nestjs/common": "^7.0.0",
@@ -46,12 +46,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kol007/nestjs-query",
+    "url": "git+https://gitlab.anvilar.com/platform/common-modules/nestjs-query",
     "directory": "packages/query-typeorm-mongo"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.json",
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
   }

@@ -1,7 +1,10 @@
 {
-  "name": "nestjs-query",
+  "name": "platform",
   "version": "0.1.12",
-  "private": true,
+  "private": false,
+  "publishConfig": {
+    "@platform:registry": "https://gitlab.anvilar.com/api/v4/projects/68/packages/npm/"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna run clean",

@@ -5,15 +5,11 @@
     "packages/*"
   ],
   "command": {
-    "version": {
-      "message": "chore(release): publish %s",
-      "allowBranch": "master",
-      "exact": true,
-      "createRelease": "github",
-      "conventionalCommits": true
-    },
     "bootstrap": {
       "hoist": true
+    },
+    "publish": {
+      "registry": "https://gitlab.anvilar.com/api/v4/projects/68/packages/npm/"
     }
   },
   "version": "0.21.2"

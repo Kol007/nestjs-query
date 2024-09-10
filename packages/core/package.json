@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-query/core",
-  "version": "0.21.6",
+  "version": "0.21.7",
   "description": "Base query package",
   "license": "MIT",
   "main": "dist/src/index.js",

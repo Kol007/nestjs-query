@@ -1,6 +1,6 @@
 {
   "name": "@nestjs-query/query-mongoose",
-  "version": "0.21.4",
+  "version": "0.21.6",
   "description": "Mongoose adapter for @nestjs-query/core",
   "license": "MIT",
   "main": "dist/src/index.js",

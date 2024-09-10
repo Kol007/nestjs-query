@@ -1,6 +1,6 @@
 {
   "name": "@platform/core",
-  "version": "0.21.7",
+  "version": "0.21.9",
   "description": "Base query package",
   "license": "MIT",
   "main": "dist/src/index.js",

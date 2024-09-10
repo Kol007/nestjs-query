@@ -1,6 +1,6 @@
 {
   "name": "@platform/query-graphql",
-  "version": "0.21.9",
+  "version": "0.21.10",
   "description": "Nestjs graphql query adapter",
   "keywords": [
     "graphql",
@@ -31,7 +31,7 @@
     "clean": "rm -rf ./dist && rm -rf tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@nestjs-query/core": "git+https://github.com/Kol007/nestjs-query",
+    "@platform/query-core": "0.21.10",
     "graphql-fields": "^2.0.3",
     "graphql-type-json": "^0.3.2",
     "lodash.omit": "^4.5.0",

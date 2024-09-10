@@ -1,5 +1,5 @@
 {
-  "name": "@nestjs-query/core",
+  "name": "@platform/core",
   "version": "0.21.7",
   "description": "Base query package",
   "license": "MIT",

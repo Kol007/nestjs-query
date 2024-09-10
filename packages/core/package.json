@@ -1,5 +1,5 @@
 {
-  "name": "@platform/core",
+  "name": "@platform/query-core",
   "version": "0.21.9",
   "description": "Base query package",
   "license": "MIT",

@@ -1,5 +1,5 @@
 {
-  "name": "@platform/query-mongoose",
+  "name": "@nestjs-query/query-mongoose",
   "version": "0.21.4",
   "description": "Mongoose adapter for @nestjs-query/core",
   "license": "MIT",

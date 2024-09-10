@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/doug-martin/nestjs-query.git",
+    "url": "git+https://gitlab.anvilar.com/platform/common-modules/nestjs-query",
     "directory": "packages/query-typeorm"
   },
   "scripts": {
